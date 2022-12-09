@@ -36,6 +36,9 @@ namespace Calculator
         {
             Button btn = sender as Button;
             textBox1.Text += btn.Text;
+            
+
+
         }
         private bool flagDot = false;
         private void btnDot_Click(object sender, EventArgs e)
@@ -50,7 +53,9 @@ namespace Calculator
         private void btnClear_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
+            textBox2.Text = "";
             flagDot = false;
+            flagoper = false;
 
 
 
@@ -58,27 +63,32 @@ namespace Calculator
        private string MathOperator;
         private string FirstNumber;
 
-
+        private bool flagoper=false;
         private void btn_Operations(object sender, EventArgs e)
         {
             FirstNumber = textBox1.Text;
             textBox2.Text += FirstNumber;
-            Button btn = sender as Button;
-            textBox2.Text += btn.Text;
-            MathOperator = btn.Text;
-            textBox1.Text = ""
-;
-
-
+            if (flagoper == false)
+            {
+                Button btn = sender as Button;
+                textBox2.Text += btn.Text;
+                MathOperator = btn.Text;
+                flagoper = true;
+            }                    
+            textBox1.Text = "";
         }
 
         private void equal_btn_Click(object sender, EventArgs e)
         {
+            if (FirstNumber == "") FirstNumber = "0";
+
+
+            textBox2.Text += textBox1.Text;
             switch (MathOperator)
             {
-                case "+":
-                    textBox2.Text += textBox1.Text;
-                    textBox1.Text =(decimal.Parse( FirstNumber)+decimal.Parse(textBox1.Text)).ToString();
+                case "+":                  
+                    textBox2.Text =(decimal.Parse( FirstNumber)+decimal.Parse(textBox1.Text)).ToString();
+                   
                     break;
                 case "-":
                     textBox1.Text = (decimal.Parse(FirstNumber) - decimal.Parse(textBox1.Text)).ToString();
